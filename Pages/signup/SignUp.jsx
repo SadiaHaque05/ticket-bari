@@ -4,6 +4,8 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { imageUpload } from "../../src/utils";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle, loading } =
@@ -26,12 +28,10 @@ const SignUp = () => {
     const imageFile = image[0];
 
     try {
+     const imageURL = await imageUpload(imageFile);
+     
       // 1. User Registration
       const result = await createUser(email, password);
-
-      // 2. Generate image url from selected file
-      // (image upload logic can be added later)
-      const imageURL = imageFile ? URL.createObjectURL(imageFile) : "";
 
       // 3. Save username & profile photo
       await updateUserProfile(name, imageURL);
