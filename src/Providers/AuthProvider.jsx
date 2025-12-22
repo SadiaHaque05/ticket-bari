@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import {
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  GoogleAuthProvider,
   signOut,
   updateProfile,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { AuthContext } from "./AuthContext";
 import { auth } from "../Firebase/firebase.config";
@@ -17,50 +17,50 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const createUser = (email, password) => {
-    setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  const signIn = (email, password) => {
-    setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
-  };
-
-  const signInWithGoogle = () => {
-    setLoading(true);
-    return signInWithPopup(auth, googleProvider);
-  };
-
-  const logOut = async () => {
-    setLoading(true);
-    return signOut(auth);
-  };
-
-  const updateUserProfile = (name, photo) => {
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photo,
-    });
-  };
-
-  // onAuthStateChange
+  // Track auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      console.log("CurrentUser-->", currentUser?.email);
-      setUser(currentUser);
+      if (currentUser) {
+        try {
+          // Fetch user from backend and normalize email
+          const res = await fetch(
+            `http://localhost:3000/users/${currentUser.email.toLowerCase()}`
+          );
+          const data = await res.json();
+
+          const role = (data?.role || "buyer").toLowerCase();
+          setUser({ ...currentUser, role });
+        } catch (error) {
+          console.log("Failed to fetch role:", error);
+          setUser({ ...currentUser, role: "buyer" });
+        }
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
-    return () => {
-      return unsubscribe();
-    };
+
+    return () => unsubscribe();
   }, []);
+
+  // Auth functions
+  const createUser = (email, password) =>
+    createUserWithEmailAndPassword(auth, email, password);
+
+  const signIn = (email, password) =>
+    signInWithEmailAndPassword(auth, email, password);
+
+  const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+
+  const logOut = () => signOut(auth);
+
+  const updateUserProfile = (displayName, photoURL) =>
+    updateProfile(auth.currentUser, { displayName, photoURL });
 
   const authInfo = {
     user,
-    setUser,
     loading,
-    setLoading,
+    setUser,
     createUser,
     signIn,
     signInWithGoogle,
@@ -68,9 +68,7 @@ const AuthProvider = ({ children }) => {
     updateUserProfile,
   };
 
-  return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

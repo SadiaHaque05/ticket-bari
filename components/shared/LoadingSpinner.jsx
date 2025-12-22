@@ -14,4 +14,4 @@ const LoadingSpinner = ({ smallHeight }) => {
   )
 }
 
-export default LoadingSpinner
+export default LoadingSpinner;
