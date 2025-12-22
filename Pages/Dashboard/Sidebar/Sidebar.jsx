@@ -23,7 +23,7 @@ const Sidebar = () => {
     { name: "Add Ticket", path: "/dashboard/add-ticket", icon: <FiPlus /> },
     { name: "My Added Tickets", path: "/dashboard/my-added-tickets", icon: <TbTicket /> },
     { name: "Requested Bookings", path: "/dashboard/requested-bookings", icon: <AiOutlineOrderedList /> },
-    { name: "Revenue Overview", path: "/dashboard/revenue-overview", icon: <TbChartPie /> },
+    { name: "Revenue Overview", path: "/dashboard/my-inventory", icon: <TbChartPie /> },
   ];
 
   const adminLinks = [
