@@ -11,6 +11,10 @@ import AddTicket from "../Pages/Dashboard/Seller/AddTicket";
 import MyInventory from "../Pages/Dashboard/Seller/MyInventory";
 import RequestedBookings from "../Pages/Dashboard/Seller/RequestedBookings";
 import Profile from "../Pages/Dashboard/Seller/Profile";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
+import ManageTickets from "../Pages/Dashboard/Admin/ManageTickets";
+import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
+import AdvertisedTickets from "../Pages/Dashboard/Admin/AdvertisedTickets";
 
 
 export const router = createBrowserRouter([
@@ -79,17 +83,31 @@ export const router = createBrowserRouter([
         path: "manage-users",
         element: (
           <PrivateRoute>
-            {/* <ManageUsers /> */}
-            <div>Manage Users Page Placeholder</div>
+           <ManageUsers />
           </PrivateRoute>
         ),
       },
       {
-        path: "manage-orders",
+        path: "manage-tickets",
         element: (
           <PrivateRoute>
-            {/* <ManageOrders /> */}
-            <div>Manage Orders Page Placeholder</div>
+            <ManageTickets />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin-profile",
+        element: (
+          <PrivateRoute>
+            <AdminProfile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "advertised-tickets",
+        element: (
+          <PrivateRoute>
+            <AdvertisedTickets />
           </PrivateRoute>
         ),
       },
