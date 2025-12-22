@@ -15,6 +15,9 @@ import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import ManageTickets from "../Pages/Dashboard/Admin/ManageTickets";
 import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
 import AdvertisedTickets from "../Pages/Dashboard/Admin/AdvertisedTickets";
+import BuyerProfile from "../Pages/Dashboard/Buyer/BuyerProfile";
+import MyBookedTickets from "../Pages/Dashboard/Buyer/MyBookedTickets";
+import TransactionHistory from "../Pages/Dashboard/Buyer/TransactionHistory";
 
 
 export const router = createBrowserRouter([
@@ -104,7 +107,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "advertised-tickets",
+        path: "advertise-tickets",
         element: (
           <PrivateRoute>
             <AdvertisedTickets />
@@ -116,27 +119,23 @@ export const router = createBrowserRouter([
         path: "profile",
         element: (
           <PrivateRoute>
-            {/* <Profile /> */}
-            <div>Profile Page Placeholder</div>
+            <BuyerProfile />
           </PrivateRoute>
         ),
       },
       {
-        path: "my-orders",
+        path: "my-booked-tickets",
         element: (
           <PrivateRoute>
-            {/* <MyOrders /> */}
-            <div>My Orders Page Placeholder</div>
+           <MyBookedTickets />
           </PrivateRoute>
         ),
       },
-      // Dashboard default page (Statistics)
       {
-        index: true,
+        path: "transaction-history",
         element: (
           <PrivateRoute>
-            {/* <Statistics /> */}
-            <div>Dashboard Home / Statistics Placeholder</div>
+           <TransactionHistory />
           </PrivateRoute>
         ),
       },

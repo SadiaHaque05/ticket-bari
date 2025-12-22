@@ -1,4 +1,3 @@
-// src/components/Homepage/Homepage.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
@@ -7,7 +6,6 @@ const Home = () => {
   const [advertisedTickets, setAdvertisedTickets] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch advertised tickets (Admin selected, max 6)
   useEffect(() => {
     axios
       .get("http://localhost:3000/tickets?advertised=true")
@@ -15,13 +13,13 @@ const Home = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  // Static Latest Tickets (mocked here, replace with API call if needed)
-  const latestTickets = advertisedTickets.slice(0, 6); // reuse for demo
+  
+  const latestTickets = advertisedTickets.slice(0, 6); 
 
   return (
     <div className="space-y-20 px-6 md:px-12">
 
-      {/* Hero Slider / Banner */}
+      {/* Banner */}
       <section className="relative h-96 w-full mt-8 rounded-lg overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1350&q=80"
