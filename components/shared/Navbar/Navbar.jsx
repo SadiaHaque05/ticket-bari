@@ -15,25 +15,20 @@ const Navbar = () => {
       <div className="py-4">
         <Container>
           <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
-            {/* Logo */}
             <Link to="/">
               <div className="flex items-center justify-center gap-1 text-gray-900 font-bold">
                 <IoTicketSharp size={24} />
                 <p>TicketBari</p>
               </div>
             </Link>
-
-            {/* Dropdown Menu */}
             <div className="relative">
               <div className="flex flex-row items-center gap-3">
-                {/* Dropdown btn */}
                 <div
                   onClick={() => setIsOpen(!isOpen)}
                   className="p-2 md:py-1 md:px-2 border border-gray-300 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition bg-white"
                 >
                   <AiOutlineMenu className="text-gray-700" />
                   <div className="hidden md:block">
-                    {/* Avatar */}
                     <img
                       className="rounded-full border border-gray-300"
                       referrerPolicy="no-referrer"
@@ -64,6 +59,14 @@ const Navbar = () => {
                         >
                           Dashboard
                         </Link>
+
+                        <Link
+                          to="/tickets"
+                          className="px-4 py-3 hover:bg-gray-200 transition font-semibold text-gray-900"
+                        >
+                          All Tickets
+                        </Link>
+
                         <div
                           onClick={logOut}
                           className="px-4 py-3 hover:bg-gray-200 transition font-semibold cursor-pointer text-gray-900"

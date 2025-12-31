@@ -18,6 +18,8 @@ import AdvertisedTickets from "../Pages/Dashboard/Admin/AdvertisedTickets";
 import BuyerProfile from "../Pages/Dashboard/Buyer/BuyerProfile";
 import MyBookedTickets from "../Pages/Dashboard/Buyer/MyBookedTickets";
 import TransactionHistory from "../Pages/Dashboard/Buyer/TransactionHistory";
+import TicketDetails from "../Pages/TicketDetails/TicketDetails";
+import AllTickets from "../Pages/AllTickets/AllTickets";
 
 
 export const router = createBrowserRouter([
@@ -27,6 +29,8 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/tickets", element: <AllTickets /> },
+      { path: "/ticket/:id", element: <TicketDetails /> }
     ],
   },
   { path: "/login", element: <Login /> },

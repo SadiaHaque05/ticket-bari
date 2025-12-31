@@ -54,7 +54,7 @@ const MyBookedTickets = ({ userEmail }) => {
   if (loading) return <p>Loading your bookings...</p>;
 
   if (!bookings.length)
-    return <p className="text-center mt-10">No booked tickets yet.</p>;
+    return <p className="text-center text-lime-500 mt-10">No booked tickets yet.</p>;
 
   return (
     <div className="p-6 max-w-screen-2xl mx-auto">
@@ -119,7 +119,7 @@ const MyBookedTickets = ({ userEmail }) => {
                     onClick={() => handlePayment(booking)}
                     className="mt-3 w-full bg-lime-500 hover:bg-lime-600 text-white py-2 rounded font-semibold transition"
                   >
-                    Pay Now
+                    Pay Now!
                   </button>
                 )}
               </div>
