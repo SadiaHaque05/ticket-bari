@@ -22,14 +22,13 @@ const BuyerProfile = ({ userEmail }) => {
     fetchUser();
   }, [userEmail]);
 
-  if (loading) return <p>Loading user profile...</p>;
+  if (loading) return <p className="text-lime-400">Loading user profile...</p>;
   if (error) return <p>{error}</p>;
-  if (!user) return <p>No user data found.</p>;
+  if (!user) return <p className="text-lime-400">No user data found.</p>;
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg">
       <div className="flex flex-col md:flex-row items-center gap-6">
-        {/* Profile Picture */}
         <div className="flex-shrink-0">
           {user.profilePicture ? (
             <img
@@ -42,7 +41,6 @@ const BuyerProfile = ({ userEmail }) => {
           )}
         </div>
 
-        {/* User Info */}
         <div className="flex-1 space-y-2">
           <h2 className="text-3xl font-bold text-lime-600">{user.name}</h2>
           <p className="text-gray-700">

@@ -33,11 +33,16 @@ const TicketDetails = ({ userEmail }) => {
   if (!ticket) return null;
 
   const departureTime = new Date(ticket.departure || Date.now() + 3600 * 1000);
-  const isExpired = new Date() > departureTime;
+  const isExpired = new Date() > departureTime || ticket.quantity === 0;
 
   const handleBooking = async () => {
     if (!userEmail) {
       alert("Please login to book a ticket.");
+      return;
+    }
+
+    if (quantity < 1 || quantity > ticket.quantity) {
+      alert("Invalid quantity selected.");
       return;
     }
 
@@ -55,6 +60,7 @@ const TicketDetails = ({ userEmail }) => {
       await axios.post("http://localhost:3000/bookings", booking);
       setBookingMessage("Booking successful! Check 'My Booked Tickets'.");
       setShowModal(false);
+      setQuantity(1); 
     } catch (err) {
       console.error(err);
       setBookingMessage("Booking failed. Please try again.");
@@ -97,37 +103,47 @@ const TicketDetails = ({ userEmail }) => {
                 : "bg-lime-500 hover:bg-lime-600"
             }`}
           >
-            {isExpired ? "Expired" : "Book Now"}
+            {isExpired ? "Unavailable" : "Book Now"}
           </button>
         </div>
       </div>
 
+      {/* Booking Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-96 shadow-lg relative">
-            <h3 className="text-xl font-bold mb-4">Book {ticket.title}</h3>
-            <label className="block mb-2 font-semibold">Quantity:</label>
+            <h3 className="text-xl font-bold text-lime-500 mb-4">Book {ticket.title}</h3>
+
+            <label className="block mb-2 text-yellow-400 font-semibold">Quantity:</label>
             <input
               type="number"
               min="1"
               max={ticket.quantity}
               value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              className="w-full border px-3 py-2 rounded mb-4"
+              onChange={(e) => {
+                let val = Number(e.target.value);
+                if (val > ticket.quantity) val = ticket.quantity;
+                if (val < 1) val = 1;
+                setQuantity(val);
+              }}
+              className="w-full border-lime-400 text-orange-300 border px-3 py-2 rounded mb-4"
             />
-            <p className="mb-4 font-semibold">
+
+            <p className="mb-4 text-lime-400 font-semibold">
               Total Price: ${Number(quantity) * ticket.price}
             </p>
+
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowModal(false)}
-                className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 transition"
+                className="px-4 py-2 rounded text-red-500 bg-gray-300 hover:bg-gray-400 transition"
               >
                 Cancel
               </button>
               <button
                 onClick={handleBooking}
-                className="px-4 py-2 rounded bg-lime-500 hover:bg-lime-600 text-white transition"
+                disabled={quantity < 1 || quantity > ticket.quantity}
+                className="px-4 py-2 rounded bg-lime-500 hover:bg-lime-600 text-white transition disabled:opacity-50"
               >
                 Confirm Booking
               </button>

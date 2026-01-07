@@ -21,7 +21,6 @@ import TransactionHistory from "../Pages/Dashboard/Buyer/TransactionHistory";
 import TicketDetails from "../Pages/TicketDetails/TicketDetails";
 import AllTickets from "../Pages/AllTickets/AllTickets";
 
-
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -77,7 +76,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "profile",
+        path: "seller-profile",
         element: (
           <PrivateRoute>
             <Profile />
@@ -90,7 +89,7 @@ export const router = createBrowserRouter([
         path: "manage-users",
         element: (
           <PrivateRoute>
-           <ManageUsers />
+            <ManageUsers />
           </PrivateRoute>
         ),
       },
@@ -120,7 +119,7 @@ export const router = createBrowserRouter([
       },
       // Buyer Routes
       {
-        path: "profile",
+        path: "buyer-profile",
         element: (
           <PrivateRoute>
             <BuyerProfile />
@@ -131,7 +130,7 @@ export const router = createBrowserRouter([
         path: "my-booked-tickets",
         element: (
           <PrivateRoute>
-           <MyBookedTickets />
+            <MyBookedTickets />
           </PrivateRoute>
         ),
       },
@@ -139,7 +138,7 @@ export const router = createBrowserRouter([
         path: "transaction-history",
         element: (
           <PrivateRoute>
-           <TransactionHistory />
+            <TransactionHistory />
           </PrivateRoute>
         ),
       },

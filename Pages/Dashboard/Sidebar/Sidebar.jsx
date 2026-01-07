@@ -15,37 +15,74 @@ const Sidebar = () => {
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
-  const commonLinks = [
-    { name: "Profile", path: "/dashboard/profile", icon: <TbUser /> },
-  ];
+  const commonLinks = [];
+
+  const profileLink =
+    user.role === "seller"
+      ? { name: "Profile", path: "/dashboard/seller-profile", icon: <TbUser /> }
+      : user.role === "buyer"
+      ? { name: "Profile", path: "/dashboard/buyer-profile", icon: <TbUser /> }
+      : { name: "Profile", path: "/dashboard/admin-profile", icon: <TbUser /> };
 
   const sellerLinks = [
     { name: "Add Ticket", path: "/dashboard/add-ticket", icon: <FiPlus /> },
-    { name: "My Added Tickets", path: "/dashboard/my-added-tickets", icon: <TbTicket /> },
-    { name: "Requested Bookings", path: "/dashboard/requested-bookings", icon: <AiOutlineOrderedList /> },
-    { name: "Revenue Overview", path: "/dashboard/my-inventory", icon: <TbChartPie /> },
+    {
+      name: "My Added Tickets",
+      path: "/dashboard/my-added-tickets",
+      icon: <TbTicket />,
+    },
+    {
+      name: "Requested Bookings",
+      path: "/dashboard/requested-bookings",
+      icon: <AiOutlineOrderedList />,
+    },
+    {
+      name: "Revenue Overview",
+      path: "/dashboard/my-inventory",
+      icon: <TbChartPie />,
+    },
   ];
 
   const adminLinks = [
-    { name: "Manage Tickets", path: "/dashboard/manage-tickets", icon: <TbTicket /> },
-    { name: "Manage Users", path: "/dashboard/manage-users", icon: <FiUsers /> },
-    { name: "Advertise Tickets", path: "/dashboard/advertise-tickets", icon: <FiCreditCard /> },
+    {
+      name: "Manage Tickets",
+      path: "/dashboard/manage-tickets",
+      icon: <TbTicket />,
+    },
+    {
+      name: "Manage Users",
+      path: "/dashboard/manage-users",
+      icon: <FiUsers />,
+    },
+    {
+      name: "Advertise Tickets",
+      path: "/dashboard/advertise-tickets",
+      icon: <FiCreditCard />,
+    },
   ];
 
   const buyerLinks = [
-    { name: "My Booked Tickets", path: "/dashboard/my-booked-tickets", icon: <TbTicket /> },
-    { name: "Transaction History", path: "/dashboard/transaction-history", icon: <FiCreditCard /> },
+    {
+      name: "My Booked Tickets",
+      path: "/dashboard/my-booked-tickets",
+      icon: <TbTicket />,
+    },
+    {
+      name: "Transaction History",
+      path: "/dashboard/transaction-history",
+      icon: <FiCreditCard />,
+    },
   ];
 
-  // Determine links based on role
-  let links = [...commonLinks];
+  let links = [profileLink];
   if (user.role === "seller") links = [...links, ...sellerLinks];
   if (user.role === "admin") links = [...links, ...adminLinks];
   if (user.role === "buyer") links = [...links, ...buyerLinks];
-
   return (
     <div
-      className={`bg-gray-100 h-screen p-5 border-r border-gray-300 transition-all ${isOpen ? "w-64" : "w-20"}`}
+      className={`bg-gray-100 h-screen p-5 border-r border-gray-300 transition-all ${
+        isOpen ? "w-64" : "w-20"
+      }`}
     >
       <button
         className="mb-5 px-2 py-1 bg-gray-300 rounded-md"
@@ -71,7 +108,6 @@ const Sidebar = () => {
         ))}
       </nav>
 
-      {/* Go Back Home Button at Bottom */}
       <div className="mt-auto">
         <Button
           label="Go Back Home"
