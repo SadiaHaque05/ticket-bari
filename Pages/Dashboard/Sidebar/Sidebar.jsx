@@ -56,12 +56,6 @@ const Sidebar = () => {
         overflow-x-auto md:overflow-x-visible
       `}
     >
-      <button
-        className="hidden md:block mb-3 px-2 py-1 bg-gray-300 rounded-md"
-        onClick={toggleSidebar}
-      >
-        {isOpen ? "Collapse" : "Expand"}
-      </button>
 
       <nav
         className={`
