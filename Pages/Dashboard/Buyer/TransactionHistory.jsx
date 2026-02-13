@@ -6,7 +6,6 @@ const TransactionHistory = ({ userEmail }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch transactions
   useEffect(() => {
     const fetchTransactions = async () => {
       try {

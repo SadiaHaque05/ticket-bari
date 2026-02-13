@@ -15,8 +15,6 @@ const Sidebar = () => {
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
-  const commonLinks = [];
-
   const profileLink =
     user.role === "seller"
       ? { name: "Profile", path: "/dashboard/seller-profile", icon: <TbUser /> }
@@ -26,91 +24,69 @@ const Sidebar = () => {
 
   const sellerLinks = [
     { name: "Add Ticket", path: "/dashboard/add-ticket", icon: <FiPlus /> },
-    {
-      name: "My Added Tickets",
-      path: "/dashboard/my-added-tickets",
-      icon: <TbTicket />,
-    },
-    {
-      name: "Requested Bookings",
-      path: "/dashboard/requested-bookings",
-      icon: <AiOutlineOrderedList />,
-    },
-    {
-      name: "Revenue Overview",
-      path: "/dashboard/my-inventory",
-      icon: <TbChartPie />,
-    },
+    { name: "My Added Tickets", path: "/dashboard/my-added-tickets", icon: <TbTicket /> },
+    { name: "Requested Bookings", path: "/dashboard/requested-bookings", icon: <AiOutlineOrderedList /> },
+    { name: "Revenue Overview", path: "/dashboard/my-inventory", icon: <TbChartPie /> },
   ];
 
   const adminLinks = [
-    {
-      name: "Manage Tickets",
-      path: "/dashboard/manage-tickets",
-      icon: <TbTicket />,
-    },
-    {
-      name: "Manage Users",
-      path: "/dashboard/manage-users",
-      icon: <FiUsers />,
-    },
-    {
-      name: "Advertise Tickets",
-      path: "/dashboard/advertise-tickets",
-      icon: <FiCreditCard />,
-    },
+    { name: "Manage Tickets", path: "/dashboard/manage-tickets", icon: <TbTicket /> },
+    { name: "Manage Users", path: "/dashboard/manage-users", icon: <FiUsers /> },
+    { name: "Advertise Tickets", path: "/dashboard/advertise-tickets", icon: <FiCreditCard /> },
   ];
 
   const buyerLinks = [
-    {
-      name: "My Booked Tickets",
-      path: "/dashboard/my-booked-tickets",
-      icon: <TbTicket />,
-    },
-    {
-      name: "Transaction History",
-      path: "/dashboard/transaction-history",
-      icon: <FiCreditCard />,
-    },
+    { name: "My Booked Tickets", path: "/dashboard/my-booked-tickets", icon: <TbTicket /> },
+    { name: "Transaction History", path: "/dashboard/transaction-history", icon: <FiCreditCard /> },
   ];
 
   let links = [profileLink];
   if (user.role === "seller") links = [...links, ...sellerLinks];
   if (user.role === "admin") links = [...links, ...adminLinks];
   if (user.role === "buyer") links = [...links, ...buyerLinks];
+
   return (
     <div
-      className={`bg-gray-100 h-screen p-5 border-r border-gray-300 transition-all ${
-        isOpen ? "w-64" : "w-20"
-      }`}
+      className={`
+        bg-gray-100 border-gray-300 transition-all 
+        md:h-screen md:p-5 md:border-r 
+        flex md:flex-col items-center md:items-start
+        gap-2 md:gap-3
+        ${isOpen ? "w-full md:w-64" : "w-full md:w-20"}
+        overflow-x-auto md:overflow-x-visible
+      `}
     >
       <button
-        className="mb-5 px-2 py-1 bg-gray-300 rounded-md"
+        className="hidden md:block mb-3 px-2 py-1 bg-gray-300 rounded-md"
         onClick={toggleSidebar}
       >
         {isOpen ? "Collapse" : "Expand"}
       </button>
 
-      <nav className="flex flex-col gap-3">
+      <nav
+        className={`
+          flex flex-row md:flex-col gap-2 md:gap-3 w-full
+          overflow-x-auto md:overflow-x-visible
+        `}
+      >
         {links.map((link) => (
           <NavLink
             key={link.name}
             to={link.path}
             className={({ isActive }) =>
-              `flex items-center gap-2 p-2 rounded-md text-gray-700 hover:bg-gray-200 ${
-                isActive ? "bg-gray-300 font-semibold" : ""
-              }`
+              `flex items-center gap-2 p-2 rounded-md text-gray-700 hover:bg-gray-200 
+              ${isActive ? "bg-gray-300 font-semibold" : ""}`
             }
           >
             <span className="text-xl">{link.icon}</span>
-            {isOpen && <span>{link.name}</span>}
+            {isOpen && <span className="whitespace-nowrap">{link.name}</span>}
           </NavLink>
         ))}
       </nav>
 
-      <div className="mt-auto">
+      <div className="mt-auto w-45 md:mt-auto">
         <Button
-          label="Go Back Home"
+          label="Home"
           icon={TbHome}
           outline={true}
           onClick={() => navigate("/")}
