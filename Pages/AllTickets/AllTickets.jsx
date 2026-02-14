@@ -9,7 +9,7 @@ const AllTickets = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/tickets")
+      .get(`${import.meta.env.VITE_API_URL}/tickets`)
       .then((res) => {
         const approvedTickets = res.data.filter(
           (ticket) => ticket.verificationStatus === "approved"

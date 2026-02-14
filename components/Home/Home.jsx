@@ -8,7 +8,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/tickets?advertised=true")
+      .get(`${import.meta.env.VITE_API_URL}/tickets?advertised=true`)
       .then((res) => setAdvertisedTickets(res.data.slice(0, 6)))
       .catch((err) => console.log(err));
   }, []);
