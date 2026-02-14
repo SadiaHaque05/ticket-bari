@@ -17,14 +17,12 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Track auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         try {
-          // Fetch user from backend and normalize email
           const res = await fetch(
-            `http://localhost:3000/users/${currentUser.email.toLowerCase()}`
+             `${import.meta.env.VITE_API_URL}/users/${currentUser.email.toLowerCase()}`
           );
           const data = await res.json();
 
@@ -43,7 +41,6 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  // Auth functions
   const createUser = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
 

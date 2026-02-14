@@ -7,7 +7,7 @@ const ManageUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/admin/users");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/admin/users`);
       setUsers(res.data);
       setLoading(false);
     } catch (error) {
@@ -22,7 +22,7 @@ const ManageUsers = () => {
 
   const makeAdmin = async (id) => {
     try {
-      await axios.put(`http://localhost:3000/admin/users/make-admin/${id}`);
+      await axios.put(`${import.meta.env.VITE_API_URL}/admin/users/make-admin/${id}`);
       fetchUsers();
     } catch (error) {
       console.error("Failed to make admin:", error);
@@ -31,7 +31,7 @@ const ManageUsers = () => {
 
   const makeVendor = async (id) => {
     try {
-      await axios.put(`http://localhost:3000/admin/users/make-vendor/${id}`);
+      await axios.put(`${import.meta.env.VITE_API_URL}/admin/users/make-vendor/${id}`);
       fetchUsers();
     } catch (error) {
       console.error("Failed to make vendor:", error);
@@ -40,7 +40,7 @@ const ManageUsers = () => {
 
   const markFraud = async (id) => {
     try {
-      await axios.put(`http://localhost:3000/admin/users/mark-fraud/${id}`);
+      await axios.put(`${import.meta.env.VITE_API_URL}/admin/users/mark-fraud/${id}`);
       fetchUsers();
     } catch (error) {
       console.error("Failed to mark fraud:", error);

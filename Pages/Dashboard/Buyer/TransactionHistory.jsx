@@ -10,7 +10,7 @@ const TransactionHistory = ({ userEmail }) => {
     const fetchTransactions = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/transactions/user/${userEmail}`
+         `${import.meta.env.VITE_API_URL}/transactions/user/${userEmail}`
         );
         setTransactions(res.data);
         setLoading(false);

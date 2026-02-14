@@ -16,7 +16,7 @@ const TicketDetails = ({ userEmail }) => {
   useEffect(() => {
     const fetchTicket = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/tickets/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/tickets/${id}`);
         setTicket(res.data);
         setLoading(false);
       } catch (err) {
@@ -57,7 +57,7 @@ const TicketDetails = ({ userEmail }) => {
         bookedAt: new Date(),
       };
 
-      await axios.post("http://localhost:3000/bookings", booking);
+      await axios.post(`${import.meta.env.VITE_API_URL}/bookings`, booking);
       setBookingMessage("Booking successful! Check 'My Booked Tickets'.");
       setShowModal(false);
       setQuantity(1); 

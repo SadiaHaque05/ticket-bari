@@ -18,7 +18,7 @@ const MyInventory = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/vendor/revenue/${user.email}`)
+    fetch(`${import.meta.env.VITE_API_URL}/vendor/revenue/${user.email}`)
       .then(res => res.json())
       .then(setData);
   }, [user]);
@@ -80,7 +80,7 @@ const MyInventory = () => {
 
         </div>
 
-        {/* CHART CARD */}
+        {/* CHART */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">
             Sales Performance

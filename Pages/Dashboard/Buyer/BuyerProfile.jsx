@@ -20,7 +20,7 @@ const BuyerProfile = () => {
     const fetchBuyer = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/users/${user.email}`
+          `${import.meta.env.VITE_API_URL}/users/${user.email}`
         );
         setBuyer(res.data);
       } catch (err) {

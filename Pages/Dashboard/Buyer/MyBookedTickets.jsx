@@ -21,7 +21,7 @@ const MyBookedTickets = () => {
 
     try {
       const res = await axios.get(
-        `http://localhost:3000/bookings/user/${userEmail}`
+        `${import.meta.env.VITE_API_URL}/bookings/user/${userEmail}`
       );
       setBookings(res.data);
     } catch (err) {
@@ -48,7 +48,7 @@ const MyBookedTickets = () => {
 
     try {
       const sessionRes = await axios.post(
-        "http://localhost:3000/create-checkout-session",
+         `${import.meta.env.VITE_API_URL}/create-checkout-session`,
         {
           bookingId: booking._id,
           amount: booking.quantity * booking.ticket.price,

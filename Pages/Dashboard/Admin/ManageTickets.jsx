@@ -7,7 +7,7 @@ const ManageTickets = () => {
 
   const fetchTickets = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/admin/tickets");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/admin/tickets`);
       setTickets(res.data);
       setLoading(false);
     } catch (error) {
@@ -22,8 +22,8 @@ const ManageTickets = () => {
 
   const handleApprove = async (id) => {
     try {
-      await axios.put(`http://localhost:3000/admin/tickets/approve/${id}`);
-      fetchTickets(); // refresh table
+      await axios.put( `${import.meta.env.VITE_API_URL}/admin/tickets/approve/${id}`);
+      fetchTickets();
     } catch (error) {
       console.error("Failed to approve ticket:", error);
     }
@@ -31,7 +31,7 @@ const ManageTickets = () => {
 
   const handleReject = async (id) => {
     try {
-      await axios.put(`http://localhost:3000/admin/tickets/reject/${id}`);
+      await axios.put(`${import.meta.env.VITE_API_URL}/admin/tickets/reject/${id}`);
       fetchTickets();
     } catch (error) {
       console.error("Failed to reject ticket:", error);

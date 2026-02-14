@@ -6,11 +6,10 @@ const RequestedBookings = ({ vendorEmail }) => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch bookings for vendor
   const fetchBookings = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/bookings/vendor/${vendorEmail}`
+         `${import.meta.env.VITE_API_URL}/bookings/vendor/${vendorEmail}`
       );
       setBookings(res.data);
     } catch (err) {
@@ -26,10 +25,9 @@ const RequestedBookings = ({ vendorEmail }) => {
 
   const handleAction = async (id, action) => {
     try {
-      await axios.put(`http://localhost:3000/bookings/${id}`, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/bookings/${id}`, {
         status: action,
       });
-      // Update UI immediately
       setBookings((prev) => prev.filter((b) => b._id !== id));
     } catch (err) {
       console.error(`Failed to ${action} booking:`, err);

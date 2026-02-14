@@ -8,7 +8,7 @@ const AdvertiseTickets = () => {
 
   const fetchTickets = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/admin/tickets"); 
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/admin/tickets`); 
       setTickets(res.data);
       setLoading(false);
     } catch (err) {
@@ -24,7 +24,7 @@ const AdvertiseTickets = () => {
 
   const toggleAdvertise = async (id) => {
     try {
-      const res = await axios.put(`http://localhost:3000/admin/tickets/advertise/${id}`);
+      const res = await axios.put(`${import.meta.env.VITE_API_URL}/admin/tickets/advertise/${id}`);
       if (res.data.success) {
         setTickets((prev) =>
           prev.map((t) =>

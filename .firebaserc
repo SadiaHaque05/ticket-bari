@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "ticketbari-f547f",
+    "prod": "ticketbari-f547f"
+  },
+  "targets": {},
+  "etags": {}
+}

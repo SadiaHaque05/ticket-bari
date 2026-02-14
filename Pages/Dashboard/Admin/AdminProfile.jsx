@@ -12,7 +12,7 @@ const AdminProfile = () => {
   useEffect(() => {
     const fetchAdmin = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/users/${adminEmail}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/users/${adminEmail}`);
         setAdmin(res.data);
         setLoading(false);
       } catch (err) {

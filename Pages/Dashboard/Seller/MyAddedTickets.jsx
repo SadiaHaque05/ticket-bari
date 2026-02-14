@@ -12,7 +12,6 @@ const MyAddedTickets = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  // Fetch tickets added by this vendor
   const { data: tickets, isLoading, isError } = useQuery({
     queryKey: ['myTickets', user?.email],
     queryFn: async () => {
@@ -22,7 +21,6 @@ const MyAddedTickets = () => {
     enabled: !!user?.email, 
   });
 
-  // Delete mutation
   const deleteMutation = useMutation({
     mutationFn: async (ticketId) => {
       await axios.delete(`${import.meta.env.VITE_API_URL}/tickets/${ticketId}`);
