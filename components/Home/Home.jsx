@@ -9,12 +9,20 @@ const Home = () => {
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_API_URL}/tickets?advertised=true`)
-      .then((res) => setAdvertisedTickets(res.data.slice(0, 6)))
+      .then((res) => {
+        const data = res.data;
+        let ticketsArray = [];
+        if (Array.isArray(data)) {
+          ticketsArray = data;
+        } else if (Array.isArray(data.tickets)) {
+          ticketsArray = data.tickets;
+        } else {
+          console.warn("Unexpected API response:", data);
+        }
+        setAdvertisedTickets(ticketsArray.slice(0, 6));
+      })
       .catch((err) => console.log(err));
   }, []);
-
-  
-  const latestTickets = advertisedTickets.slice(0, 6); 
 
   return (
     <div className="space-y-20 px-6 md:px-12">
@@ -42,75 +50,84 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Advertisement Section */}
       <section>
         <h2 className="text-3xl text-lime-300 font-bold mb-6 border-l-4 border-lime-500 pl-3">
           Advertised Tickets
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {advertisedTickets.map((ticket) => (
-            <div
-              key={ticket._id}
-              className="bg-white text-lime-300 shadow-md rounded-lg overflow-hidden hover:shadow-xl transition"
-            >
-              <img
-                src={ticket.image}
-                alt={ticket.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold mb-1">{ticket.title}</h3>
-                <p className="text-gray-600">Price: ${ticket.price}</p>
-                <p className="text-gray-600">Quantity: {ticket.quantity}</p>
-                <p className="text-gray-600">Transport: {ticket.transportType}</p>
-                <p className="text-gray-600">Perks: {ticket.perks?.join(", ")}</p>
-                <button
-                  onClick={() => navigate(`/ticket/${ticket._id}`)}
-                  className="mt-3 w-full bg-lime-500 hover:bg-lime-600 text-white py-2 rounded font-semibold transition"
-                >
-                  See Details
-                </button>
+          {advertisedTickets.length > 0 ? (
+            advertisedTickets.map((ticket) => (
+              <div
+                key={ticket._id}
+                className="bg-white text-lime-300 shadow-md rounded-lg overflow-hidden hover:shadow-xl transition"
+              >
+                <img
+                  src={ticket.image}
+                  alt={ticket.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold mb-1">{ticket.title}</h3>
+                  <p className="text-gray-600">Price: ${ticket.price}</p>
+                  <p className="text-gray-600">Quantity: {ticket.quantity}</p>
+                  <p className="text-gray-600">Transport: {ticket.transportType}</p>
+                  <p className="text-gray-600">
+                    Perks: {ticket.perks?.join(", ")}
+                  </p>
+                  <button
+                    onClick={() => navigate(`/ticket/${ticket._id}`)}
+                    className="mt-3 w-full bg-lime-500 hover:bg-lime-600 text-white py-2 rounded font-semibold transition"
+                  >
+                    See Details
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>No advertised tickets available</p>
+          )}
         </div>
       </section>
 
-      {/* Latest Tickets Section */}
       <section>
         <h2 className="text-3xl text-lime-300 font-bold mb-6 border-l-4 border-lime-500 pl-3">
           Latest Tickets
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {latestTickets.map((ticket) => (
-            <div
-              key={ticket._id}
-              className="bg-white text-lime-300 shadow-md rounded-lg overflow-hidden hover:shadow-xl transition"
-            >
-              <img
-                src={ticket.image}
-                alt={ticket.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold mb-1">{ticket.title}</h3>
-                <p className="text-gray-600">Price: ${ticket.price}</p>
-                <p className="text-gray-600">Quantity: {ticket.quantity}</p>
-                <p className="text-gray-600">Transport: {ticket.transportType}</p>
-                <p className="text-gray-600">Perks: {ticket.perks?.join(", ")}</p>
-                <button
-                  onClick={() => navigate(`/ticket/${ticket._id}`)}
-                  className="mt-3 w-full bg-lime-500 hover:bg-lime-600 text-white py-2 rounded font-semibold transition"
-                >
-                  See Details
-                </button>
+          {advertisedTickets.length > 0 ? (
+            advertisedTickets.slice(0, 6).map((ticket) => (
+              <div
+                key={ticket._id}
+                className="bg-white text-lime-300 shadow-md rounded-lg overflow-hidden hover:shadow-xl transition"
+              >
+                <img
+                  src={ticket.image}
+                  alt={ticket.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold mb-1">{ticket.title}</h3>
+                  <p className="text-gray-600">Price: ${ticket.price}</p>
+                  <p className="text-gray-600">Quantity: {ticket.quantity}</p>
+                  <p className="text-gray-600">Transport: {ticket.transportType}</p>
+                  <p className="text-gray-600">
+                    Perks: {ticket.perks?.join(", ")}
+                  </p>
+                  <button
+                    onClick={() => navigate(`/ticket/${ticket._id}`)}
+                    className="mt-3 w-full bg-lime-500 hover:bg-lime-600 text-white py-2 rounded font-semibold transition"
+                  >
+                    See Details
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>No latest tickets available</p>
+          )}
         </div>
       </section>
 
-      {/* Extra Section 1: Popular Routes */}
       <section className="bg-gray-50 p-8 rounded-lg shadow-md">
         <h2 className="text-3xl text-lime-300 font-bold mb-6 border-l-4 border-lime-500 pl-3">
           Popular Routes
@@ -128,7 +145,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Extra Section 2: Why Choose Us */}
       <section className="relative bg-lime-500 text-white rounded-lg p-12 shadow-xl overflow-hidden">
         <h2 className="text-3xl font-bold mb-6 border-l-4 border-white pl-3">
           Why Choose Us?

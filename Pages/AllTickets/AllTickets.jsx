@@ -11,7 +11,8 @@ const AllTickets = () => {
     axios
       .get(`${import.meta.env.VITE_API_URL}/tickets`)
       .then((res) => {
-        const approvedTickets = res.data.filter(
+        const data = Array.isArray(res.data) ? res.data : [];
+        const approvedTickets = data.filter(
           (ticket) => ticket.verificationStatus === "approved"
         );
         setTickets(approvedTickets);
@@ -63,21 +64,16 @@ const AllTickets = () => {
                   Transport: {ticket.transportType}
                 </p>
 
-                <p className="text-gray-600">
-                  Price: ৳{ticket.price}
-                </p>
+                <p className="text-gray-600">Price: ৳{ticket.price}</p>
 
-                <p className="text-gray-600">
-                  Quantity: {ticket.quantity}
-                </p>
+                <p className="text-gray-600">Quantity: {ticket.quantity}</p>
 
                 <p className="text-gray-600">
                   Perks: {ticket.perks?.join(", ")}
                 </p>
 
                 <p className="text-gray-600">
-                  Departure:{" "}
-                  {new Date(ticket.departureTime).toLocaleString()}
+                  Departure: {new Date(ticket.departureTime).toLocaleString()}
                 </p>
 
                 <button

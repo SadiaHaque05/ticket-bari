@@ -43,7 +43,7 @@ const MyAddedTickets = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tickets.map(ticket => (
-            <div key={ticket.id} className="bg-white rounded-md shadow p-4 flex flex-col justify-between">
+            <div key={ticket._id} className="bg-white rounded-md shadow p-4 flex flex-col justify-between">
               <div>
                 <h3 className="font-semibold text-lg mb-2">{ticket.title}</h3>
                 <p className="text-sm text-gray-600">
